@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@config "../../tailwind.config.js";
+
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.masonry {
+  columns: 2;
+}
+
+/* tailwind md: */
+
+@media (width >= 48rem) {
+  .masonry {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: masonry;
+  }
+}
