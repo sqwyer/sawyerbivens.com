@@ -16,78 +16,108 @@ function Photo({
   height,
   children,
   className,
-  setPopupState
+  setPopupState,
 }: {
-  src: string,
-  alt: string,
-  width: number,
-  height: number,
-  children?: React.ReactNode,
-  className?: string,
-  setPopupState: Dispatch<SetStateAction<PopupStateType>>
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  children?: React.ReactNode;
+  className?: string;
+  setPopupState: Dispatch<SetStateAction<PopupStateType>>;
 }) {
-  return <div className={cn("flex flex-col justify-center items-center group border p-6 cursor-pointer h-full", className)}>
-    <Image src={src} alt={alt} width={width} height={height} className="w-full md:grayscale group-hover:grayscale-0 duration-100" onClick={() => setPopupState({
-      active: true,
-      image: {
-        alt,
-        height,
-        src,
-        width
-      }
-    })}/>
-    {children}
-  </div>
+  return (
+    <div
+      className={cn(
+        "group flex h-full cursor-pointer flex-col items-center justify-center border p-2 md:p-6",
+        className,
+      )}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        className="w-full duration-100 group-hover:grayscale-0 md:grayscale"
+        onClick={() =>
+          setPopupState({
+            active: true,
+            image: {
+              alt,
+              height,
+              src,
+              width,
+            },
+          })
+        }
+      />
+      {children}
+    </div>
+  );
 }
 
 function PhotoPopup({
   image,
-  setPopupState
+  setPopupState,
 }: {
   image: {
-    src: string,
-    alt: string,
-    height: number,
-    width: number
-  },
-  setPopupState: Dispatch<SetStateAction<PopupStateType>>
+    src: string;
+    alt: string;
+    height: number;
+    width: number;
+  };
+  setPopupState: Dispatch<SetStateAction<PopupStateType>>;
 }) {
-  return <>
-    <div className="fixed inset-0 bg-black/30 z-40 backdrop-blur-sm" onClick={() => setPopupState({ active: false, image: null })}></div>
-    {/* <div className="z-50 p-6 bg-white border border-black h-[90vh] fixed top-1/2 left-1/2 -translate-1/2 flex flex-col items-center justify-center"> */}
-      <Image src={image.src} alt={image.alt} width={image.width} height={image.height} className="max-w-[calc(100vw-24px-24px)] z-50 fixed top-1/2 left-1/2 -translate-1/2  max-h-[calc(90vh-2px-24px-24px)] w-auto p-6 border border-black bg-white" />
-    {/* </div> */}
-  </>
+  return (
+    <>
+      <div
+        className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm"
+        onClick={() => setPopupState({ active: false, image: null })}
+      ></div>
+      {/* <div className="z-50 p-6 bg-white border border-black h-[90vh] fixed top-1/2 left-1/2 -translate-1/2 flex flex-col items-center justify-center"> */}
+      <Image
+        src={image.src}
+        alt={image.alt}
+        width={image.width}
+        height={image.height}
+        className="fixed top-1/2 left-1/2 z-50 max-h-[calc(90vh-2px-24px-24px)] w-auto max-w-[calc(100vw-24px-24px)] -translate-1/2 border border-black bg-white p-6"
+      />
+      {/* </div> */}
+    </>
+  );
 }
 
 type PopupStateType = {
-  active: boolean,
-  image: null|{
-    src: string,
-    alt: string,
-    height: number,
-    width: number
-  }
-}
+  active: boolean;
+  image: null | {
+    src: string;
+    alt: string;
+    height: number;
+    width: number;
+  };
+};
 
 export default function Home() {
   // const hello = api.post.hello.useQuery({ text: "from tRPC" });
 
-  const [ popupState, setPopupState ] = useState<PopupStateType>({
+  const [popupState, setPopupState] = useState<PopupStateType>({
     active: false,
-    image: null
+    image: null,
   });
 
   useEffect(() => {
-    if(popupState.active) document.body.classList.add("overflow-y-hidden");
+    if (popupState.active) document.body.classList.add("overflow-y-hidden");
     else document.body.classList.remove("overflow-y-hidden");
-  }, [popupState.active])
+  }, [popupState.active]);
 
   return (
     <>
       <Head>
         <title>Sawyer Bivens Photo</title>
-        <meta name="description" content="I&apos;m Sawyer, a photographer based out of Sherwood, Arkansas." />
+        <meta
+          name="description"
+          content="I'm Sawyer, a photographer based out of Sherwood, Arkansas."
+        />
         <link rel="icon" href="/favicon.ico" />
 
         <meta
@@ -102,24 +132,114 @@ export default function Home() {
       </Head>
       <main className="font-serif">
         <Nav />
-        <div className="masonry gap-6 px-6 pb-6 space-y-6 md:space-y-0">
-          <Photo setPopupState={setPopupState} src="/IMG_1.jpg" alt="IMAGE 1" width={1000} height={1500} />
-          <Photo setPopupState={setPopupState} src="/IMG_2.jpg" alt="IMAGE 2" width={1500} height={1000} />
-          <Photo setPopupState={setPopupState} src="/IMG_3.jpg" alt="IMAGE 3" width={1500} height={1000} />
-          <Photo setPopupState={setPopupState} src="/IMG_4.jpg" alt="IMAGE 4" className="col-span-2 items-center"width={1500} height={1000} />
-          <Photo setPopupState={setPopupState} src="/IMG_12.jpg" alt="IMAGE 12" width={1500} height={1000} />
-          <Photo setPopupState={setPopupState} src="/IMG_6.jpg" alt="IMAGE 6" width={1500} height={1000} />
-          <Photo setPopupState={setPopupState} src="/IMG_7.jpg" alt="IMAGE 7" className="col-span-2 items-center" width={1500} height={1000} />
-          <Photo setPopupState={setPopupState} src="/IMG_5.jpg" alt="IMAGE 5" width={1500} height={1000} />
-          <Photo setPopupState={setPopupState} src="/IMG_13.jpg" alt="IMAGE 13" width={1500} height={1000} />
-          <Photo setPopupState={setPopupState} src="/IMG_14.jpg" alt="IMAGE 14" width={1500} height={1000} />
-          <Photo setPopupState={setPopupState} src="/IMG_8.jpg" alt="IMAGE 8" width={1500} height={1000} />
-          <Photo setPopupState={setPopupState} src="/IMG_9.jpg" alt="IMAGE 9" className="col-span-2 items-center" width={1500} height={1000} />
-          <Photo setPopupState={setPopupState} src="/IMG_10.jpg" alt="IMAGE 10" className="col-span-2 items-center" width={1500} height={1000} />
-          <Photo setPopupState={setPopupState} src="/IMG_11.jpg" alt="IMAGE 11" width={1500} height={1000} />
+        <div className="masonry gap-3 space-y-3 px-6 pb-6 md:space-y-0">
+          <Photo
+            setPopupState={setPopupState}
+            src="/IMG_1.jpg"
+            alt="IMAGE 1"
+            width={1000}
+            height={1500}
+          />
+          <Photo
+            setPopupState={setPopupState}
+            src="/IMG_2.jpg"
+            alt="IMAGE 2"
+            width={1500}
+            height={1000}
+          />
+          <Photo
+            setPopupState={setPopupState}
+            src="/IMG_3.jpg"
+            alt="IMAGE 3"
+            width={1500}
+            height={1000}
+          />
+          <Photo
+            setPopupState={setPopupState}
+            src="/IMG_4.jpg"
+            alt="IMAGE 4"
+            className="col-span-2 items-center"
+            width={1500}
+            height={1000}
+          />
+          <Photo
+            setPopupState={setPopupState}
+            src="/IMG_12.jpg"
+            alt="IMAGE 12"
+            width={1500}
+            height={1000}
+          />
+          <Photo
+            setPopupState={setPopupState}
+            src="/IMG_6.jpg"
+            alt="IMAGE 6"
+            width={1500}
+            height={1000}
+          />
+          <Photo
+            setPopupState={setPopupState}
+            src="/IMG_7.jpg"
+            alt="IMAGE 7"
+            className="col-span-2 items-center"
+            width={1500}
+            height={1000}
+          />
+          <Photo
+            setPopupState={setPopupState}
+            src="/IMG_5.jpg"
+            alt="IMAGE 5"
+            width={1500}
+            height={1000}
+          />
+          <Photo
+            setPopupState={setPopupState}
+            src="/IMG_13.jpg"
+            alt="IMAGE 13"
+            width={1500}
+            height={1000}
+          />
+          <Photo
+            setPopupState={setPopupState}
+            src="/IMG_14.jpg"
+            alt="IMAGE 14"
+            width={1500}
+            height={1000}
+          />
+          <Photo
+            setPopupState={setPopupState}
+            src="/IMG_8.jpg"
+            alt="IMAGE 8"
+            width={1500}
+            height={1000}
+          />
+          <Photo
+            setPopupState={setPopupState}
+            src="/IMG_9.jpg"
+            alt="IMAGE 9"
+            className="col-span-2 items-center"
+            width={1500}
+            height={1000}
+          />
+          <Photo
+            setPopupState={setPopupState}
+            src="/IMG_10.jpg"
+            alt="IMAGE 10"
+            className="col-span-2 items-center"
+            width={1500}
+            height={1000}
+          />
+          <Photo
+            setPopupState={setPopupState}
+            src="/IMG_11.jpg"
+            alt="IMAGE 11"
+            width={1500}
+            height={1000}
+          />
         </div>
         <Footer />
-        {popupState.active && popupState.image && <PhotoPopup setPopupState={setPopupState} image={popupState.image} /> }
+        {popupState.active && popupState.image && (
+          <PhotoPopup setPopupState={setPopupState} image={popupState.image} />
+        )}
       </main>
     </>
   );

@@ -23,14 +23,19 @@ export default function Custom404() {
         <meta property="og:image:height" content="360" />
         <meta property="og:title" content="Sawyer Bivens Photography" />
       </Head>
-      <main className="font-serif flex flex-col min-h-screen">
+      <main className="flex min-h-screen flex-col font-serif">
         <Nav />
-        <div className="text-center flex flex-col gap-6 my-auto pb-24">
+        <div className="my-auto flex flex-col gap-6 pb-24 text-center">
           <h1 className="text-9xl italic">404</h1>
-          <p>Page not found... <Link href="/" className="underline cursor-pointer">back home?</Link></p>
+          <p>
+            Page not found...{" "}
+            <Link href="/" className="cursor-pointer underline">
+              back home?
+            </Link>
+          </p>
         </div>
         <Footer />
       </main>
     </>
-  )
+  );
 }

@@ -3,14 +3,17 @@
 @config "../../tailwind.config.js";
 
 @font-face {
-  font-family: 'Georgia';
+  font-family: "Georgia";
   font-style: normal;
   font-weight: 400;
-  src: local('Georgia'), url('/fonts/Georgia-PersonalUse.woff') format('woff');
+  src:
+    local("Georgia"),
+    url("/fonts/Georgia-PersonalUse.woff") format("woff");
 }
 
 @theme {
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
+  --font-sans:
+    var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-serif: Georgia, ui-serif, Cambria, "Times New Roman", Times, serif;
 }
