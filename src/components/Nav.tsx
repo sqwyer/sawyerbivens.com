@@ -6,7 +6,7 @@ export function Nav() {
   <div className="flex flex-row items-center gap-6">
     <Link href="/" className="text-gray-600 font-serif hover:text-black hover:underline">Home</Link>
     {/* <Link href="/newsletter" className="text-gray-600 font-serif hover:text-black hover:underline">Newsletter</Link> */}
-    <Link href="mailto:sawyerbivens06@gmail.com" className="text-gray-600 font-serif hover:text-black hover:underline">Contact Me</Link>
+    <Link href="/contact" className="text-gray-600 font-serif hover:text-black hover:underline">Contact Me</Link>
   </div>
 </nav>
 }

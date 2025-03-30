@@ -27,7 +27,7 @@ function Photo({
   setPopupState: Dispatch<SetStateAction<PopupStateType>>
 }) {
   return <div className={cn("flex flex-col justify-center items-center group border p-6 cursor-pointer h-full", className)}>
-    <Image src={src} alt={alt} width={width} height={height} className="w-full grayscale group-hover:grayscale-0 duration-100" onClick={() => setPopupState({
+    <Image src={src} alt={alt} width={width} height={height} className="w-full md:grayscale group-hover:grayscale-0 duration-100" onClick={() => setPopupState({
       active: true,
       image: {
         alt,
